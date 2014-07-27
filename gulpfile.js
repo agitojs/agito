@@ -5,6 +5,9 @@ var istanbul = require('gulp-istanbul');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
+var notify = require('gulp-notify');
+var plumber = require('gulp-plumber');
+var watch = require('gulp-watch');
 
 var paths = {
   gulpfile: 'gulpfile.js',
@@ -12,16 +15,18 @@ var paths = {
   tests: 'test/**/*.js'
 };
 
-gulp.task('coverage', function(done) {
-  gulp.src([paths.scripts])
-    .pipe(istanbul())
-    .on('finish', function() {
-      gulp.src([paths.tests])
+gulp.task('default', ['lint', 'test']);
+
+gulp.task('tdd', function() {
+  gulp.src([paths.scripts, paths.tests], { read: false })
+    .pipe(watch({ emit: 'all' }, function(files) {
+      files
+        .pipe(plumber(notify.onError()))
+        .pipe(jshint())
+        .pipe(jscs())
         .pipe(mocha())
-        .pipe(istanbul.writeReports({ reporters: ['lcovonly'] }))
-        .on('end', done)
       ;
-    })
+    }))
   ;
 });
 
@@ -38,4 +43,15 @@ gulp.task('test', function() {
   ;
 });
 
-gulp.task('default', ['lint', 'test']);
+gulp.task('coverage', function(done) {
+  gulp.src([paths.scripts])
+    .pipe(istanbul())
+    .on('finish', function() {
+      gulp.src([paths.tests])
+        .pipe(mocha())
+        .pipe(istanbul.writeReports({ reporters: ['lcovonly'] }))
+        .on('end', done)
+      ;
+    })
+  ;
+});
