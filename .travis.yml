@@ -8,6 +8,7 @@ addons:
       # CODECLIMATE_REPO_TOKEN
       secure: "NbqgqQfNBW4ovOrPD4nqLqs9D2JjUxZfJKvSwEdNQnLBPOpVJ7K4LE2owvACJBrfoEjQrXHbqLKjEcufLMI/9+qjqx/6ectJHez9nH5V+VOdgDX1VEV9RYC54OC8w7VLgEgT+PQY7001WvwTPl7p7H9NxWoQ0GknxrIiOgNt3J8="
 
+
 before_install:
   - npm install -g npm
 
@@ -21,3 +22,14 @@ after_success:
   - npm install -g codeclimate-test-reporter
   - gulp coverage
   - cat coverage/lcov.info | codeclimate
+
+
+deploy:
+  provider: npm
+  email: aymeric@beaumet.me
+  api_key:
+    secure: bzKnrnIs+NbceT5jKYePmf4tikNhsrRMrp0DR2ZLpEOiuA+5MgTEyfHZFh0Yb/wUjfzMhSQjrS3AkdwOJAA4AJNXhKds54F3R3uxNFrsJPjp1qWP4D9Sd11VH45ohe2XWnMSBi82B0LmsDtkDgkGgUys5JFz63beGiYCeahKNgo=
+  on:
+    repo: agitojs/agito
+    tags: true
+    all_branches: true # Fix a Travis issue, should not be necessary
