@@ -23,6 +23,7 @@ gulp.task('tdd', function() {
       files
         .pipe(plumber(notify.onError()))
         .pipe(jshint())
+        .pipe(jshint.reporter('default'))
         .pipe(jscs())
         .pipe(mocha())
       ;
@@ -33,6 +34,7 @@ gulp.task('tdd', function() {
 gulp.task('lint', function() {
   return gulp.src([paths.gulpfile, paths.scripts, paths.tests])
     .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(jscs())
   ;
 });
