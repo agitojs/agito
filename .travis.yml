@@ -32,5 +32,6 @@ deploy:
     secure: bzKnrnIs+NbceT5jKYePmf4tikNhsrRMrp0DR2ZLpEOiuA+5MgTEyfHZFh0Yb/wUjfzMhSQjrS3AkdwOJAA4AJNXhKds54F3R3uxNFrsJPjp1qWP4D9Sd11VH45ohe2XWnMSBi82B0LmsDtkDgkGgUys5JFz63beGiYCeahKNgo=
   on:
     repo: agitojs/agito
+    #on: master
+    all_branches: true # Travis issue, should not be necessary
     tags: true
-    all_branches: true # Fix a Travis issue, should not be necessary
