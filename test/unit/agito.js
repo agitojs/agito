@@ -10,13 +10,14 @@ describe('Agito', function() {
     expect(Agito).to.be.a('function');
   });
 
-  it('should be a new-able', function() {
-    new Agito(); // jshint ignore:line
+  it('should create an object using the "new" operator', function() {
+    var agito = new Agito();
+    expect(agito).to.be.an.instanceOf(Agito);
   });
 
-  it('should expose an object with its public properties', function() {
-    var agito = new Agito();
-    expect(agito).to.be.an('object');
+  it('should create an object even without the "new" operator', function() {
+    var agito = Agito(); // jshint ignore:line
+    expect(agito).to.be.an.instanceOf(Agito);
   });
 
   it('should expose the "use" method', function() {
