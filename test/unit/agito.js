@@ -1,14 +1,17 @@
 'use strict';
 
-var chai = require('chai');
-var expect = chai.expect;
+var expect = require('chai').expect;
 
-describe('agito', function() {
+describe('Agito', function() {
 
-  var agito = require('../../lib/agito.js');
+  var Agito = require('../../lib');
 
-  it('should export an object', function() {
-    expect(agito).to.be.an('object');
+  it('should be a function', function() {
+    expect(Agito).to.be.a('function');
+  });
+
+  it('should be a new-able', function() {
+    new Agito();
   });
 
 });
