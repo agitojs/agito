@@ -19,5 +19,13 @@
   "bugs": {
     "url": "https://github.com/agitojs/agito/issues"
   },
-  "homepage": "https://github.com/agitojs/agito"
+  "homepage": "https://github.com/agitojs/agito",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "gulp-istanbul": "^0.2.1",
+    "gulp-mocha": "^0.5.2"
+  },
+  "dependencies": {
+    "gulp": "^3.8.6"
+  }
 }
