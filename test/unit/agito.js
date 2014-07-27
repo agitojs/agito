@@ -11,7 +11,7 @@ describe('Agito', function() {
   });
 
   it('should be a new-able', function() {
-    new Agito();
+    new Agito(); // jshint ignore:line
   });
 
 });
