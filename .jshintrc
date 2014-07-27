@@ -14,7 +14,7 @@
   "nonew": true,
   "plusplus": true,
   "undef": true,
-  "ununsed": true,
+  "unused": true,
   "strict": true,
 
   "node": true,
