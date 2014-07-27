@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 
 describe('Agito', function() {
 
-  var Agito = require('../../lib');
+  var Agito = require('../..');
 
   it('should be a function', function() {
     expect(Agito).to.be.a('function');
