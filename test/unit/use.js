@@ -15,7 +15,7 @@ describe('Agito#use()', function() {
   /*
    */
   it('should register a new middleware', function() {
-    var agito = {};
+    var agito = { middlewares: [] };
     use.call(agito, function middleware() {});
 
     expect(agito.middlewares).to.be.an.instanceof(Array);
@@ -25,7 +25,7 @@ describe('Agito#use()', function() {
   /*
    */
   it('should support several consecutive calls', function() {
-    var agito = {};
+    var agito = { middlewares: [] };
     var ret = use.call(
       use.call(agito, function middlewareA() {}),
       function middlewareB() {}
@@ -33,6 +33,16 @@ describe('Agito#use()', function() {
 
     expect(ret).to.deep.equal(agito);
     expect(agito.middlewares).to.have.length(2);
+  });
+
+  /*
+   */
+  it('should throw if the middleware attribute is not an array', function() {
+    var agito = { middlewares: {} };
+
+    expect(function() {
+      agito.use();
+    }).to.throw();
   });
 
 });

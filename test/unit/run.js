@@ -48,15 +48,17 @@ describe('Agito#run()', function() {
 
     agito.middlewares.forEach(function(middleware) {
       expect(middleware).to.have.been.calledOn(agito);
+      expect(middleware).to.have.been.calledWith(agito);
     });
   });
 
   /*
    */
   it('should return null to avoid accidental chaining', function() {
-    var ret = run.call({ middlewares: [ createMiddleware() ] });
+    var agito = { middlewares: [ createMiddleware() ] };
+    var ret = run.call(agito);
 
-    expect(ret).to.be.null;
+    expect(ret).to.equal(null);
   });
 
 });

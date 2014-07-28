@@ -17,14 +17,24 @@ describe('Agito', function() {
   it('should create an object using the "new" operator', function() {
     var agito = new Agito();
 
-    expect(agito).to.be.an.instanceof(Agito);
+    expect(agito).to.be.an.instanceOf(Agito);
   });
 
   /*
    */
   it('should create an object even without the "new" operator', function() {
     var agito = Agito(); // jshint ignore:line
-    expect(agito).to.be.an.instanceof(Agito);
+
+    expect(agito).to.be.an.instanceOf(Agito);
+  });
+
+  /*
+   */
+  it('should expose a middlewares array', function() {
+    var agito = new Agito();
+
+    expect(agito).to.have.ownProperty('middlewares');
+    expect(agito.middlewares).to.be.an.instanceof(Array);
   });
 
   /*
