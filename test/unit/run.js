@@ -5,6 +5,13 @@ var expect = chai.expect;
 var sinon = require('sinon');
 chai.use(require('sinon-chai'));
 
+/**
+ * Stub a spy middleware.
+ */
+function createMiddleware() {
+  return sinon.spy(function middleware(agito, done) { return done(); });
+}
+
 describe('Agito#run()', function() {
 
   var run = require('../../lib/run');
@@ -35,15 +42,21 @@ describe('Agito#run()', function() {
    */
   it('should call every registered middlewares once', function() {
     var agito = {
-      middlewares: [1, 2, 3].map(function() {
-        return sinon.spy(function middleware(agito, done) { return done(); });
-      })
+      middlewares: [1, 2, 3].map(function() { return createMiddleware(); })
     };
     run.call(agito);
 
     agito.middlewares.forEach(function(middleware) {
       expect(middleware).to.have.been.calledOn(agito);
     });
+  });
+
+  /*
+   */
+  it('should return null to avoid accidental chaining', function() {
+    var ret = run.call({ middlewares: [ createMiddleware() ] });
+
+    expect(ret).to.be.null;
   });
 
 });
