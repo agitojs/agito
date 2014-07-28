@@ -31,7 +31,16 @@ describe('Agito', function() {
    */
   it('should expose the "use" method', function() {
     var agito = new Agito();
+
     expect(agito).to.respondTo('use');
+  });
+
+  /*
+   */
+  it('should expose the "run" method', function() {
+    var agito = new Agito();
+
+    expect(agito).to.respondTo('run');
   });
 
 });
