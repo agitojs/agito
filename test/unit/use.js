@@ -22,4 +22,17 @@ describe('Agito#use()', function() {
     expect(agito.middlewares).to.have.length(1);
   });
 
+  /*
+   */
+  it('should support several consecutive calls', function() {
+    var agito = {};
+    var ret = use.call(
+      use.call(agito, function middlewareA() {}),
+      function middlewareB() {}
+    );
+
+    expect(ret).to.deep.equal(agito);
+    expect(agito.middlewares).to.have.length(2);
+  });
+
 });
