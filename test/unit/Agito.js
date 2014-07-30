@@ -48,6 +48,14 @@ describe('Agito', function() {
     expect(agito.protocols).to.be.empty; // jshint ignore:line
   });
 
+  it('should expose a redirection container (publicly)', function() {
+    var agito = new Agito();
+
+    expect(agito).to.have.property('redirections');
+    expect(agito.redirections).to.be.an.instanceOf(Array);
+    expect(agito.redirections).to.be.empty; // jshint ignore:line
+  });
+
   /*
    */
   it('should expose the "use" method', function() {
