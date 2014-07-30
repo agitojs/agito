@@ -34,8 +34,18 @@ describe('Agito', function() {
     var agito = new Agito();
 
     expect(agito).to.have.property('_middlewares');
-    expect(agito._middlewares).to.be.an.instanceof(Array);
+    expect(agito._middlewares).to.be.an.instanceOf(Array);
     expect(agito._middlewares).to.be.empty; // jshint ignore:line
+  });
+
+  /*
+   */
+  it('should expose a protocol container (publicly)', function() {
+    var agito = new Agito();
+
+    expect(agito).to.have.property('protocols');
+    expect(agito.protocols).to.be.an.instanceOf(Array);
+    expect(agito.protocols).to.be.empty; // jshint ignore:line
   });
 
   /*
