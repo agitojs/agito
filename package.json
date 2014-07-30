@@ -12,8 +12,9 @@
     "url": "https://github.com/agitojs/agito.git"
   },
   "keywords": [
-    "redirection",
-    "engine"
+    "engine",
+    "flexible",
+    "redirection"
   ],
   "author": "Aymeric Beaumet <aymeric@beaumet.me> (http://beaumet.me/)",
   "license": "MIT",
