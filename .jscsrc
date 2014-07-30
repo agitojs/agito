@@ -1,5 +1,7 @@
 {
   "preset": "google",
 
-  "maximumLineLength": null
+  "maximumLineLength": null,
+  "requireSpacesInsideObjectBrackets": "allButNested",
+  "validateQuoteMarks": { "mark": "'", "escape": true }
 }
