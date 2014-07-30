@@ -55,7 +55,7 @@ describe('Agito#run()', function() {
   /*
    */
   it('should return null to avoid accidental chaining', function() {
-    var agito = { _middlewares: [ createMiddleware() ] };
+    var agito = { _middlewares: [createMiddleware()] };
     var ret = run.call(agito);
 
     expect(ret).to.equal(null);
