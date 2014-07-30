@@ -2,6 +2,11 @@
   "name": "agito",
   "version": "0.0.0",
   "description": "A middleware based redirection engine.",
+  "scripts": {
+    "test": "./node_modules/.bin/gulp lint test",
+    "cover": "./node_modules/.bin/gulp cover",
+    "codeclimate": "./node_modules/.bin/codeclimate < ./coverage/lcov.info"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/agitojs/agito.git"

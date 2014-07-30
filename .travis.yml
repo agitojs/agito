@@ -17,11 +17,11 @@ install:
   - npm install
 
 script:
-  - ./node_modules/.bin/gulp lint test
+  - npm test
 
 after_success:
-  - ./node_modules/.bin/gulp coverage
-  - ./node_modules/.bin/codeclimate < ./coverage/lcov.info
+  - npm run cover
+  - npm run codeclimate
 
 
 deploy:
