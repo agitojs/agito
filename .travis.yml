@@ -17,12 +17,11 @@ install:
   - npm install
 
 script:
-  - gulp lint test
+  - ./node_modules/.bin/gulp lint test
 
 after_success:
-  - npm install -g codeclimate-test-reporter
-  - gulp coverage
-  - codeclimate < coverage/lcov.info
+  - ./node_modules/.bin/gulp coverage
+  - ./node_modules/.bin/codeclimate < ./coverage/lcov.info
 
 
 deploy:

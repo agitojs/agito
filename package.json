@@ -16,8 +16,12 @@
     "url": "https://github.com/agitojs/agito/issues"
   },
   "homepage": "https://github.com/agitojs/agito",
+  "dependencies": {
+    "async": "^0.9.0"
+  },
   "devDependencies": {
     "chai": "^1.9.1",
+    "codeclimate-test-reporter": "0.0.3",
     "gulp": "^3.8.6",
     "gulp-istanbul": "^0.2.1",
     "gulp-jscs": "^1.0.0",
@@ -27,8 +31,5 @@
     "gulp-plumber": "^0.6.4",
     "gulp-watch": "^0.6.8",
     "sinon-chai": "^2.5.0"
-  },
-  "dependencies": {
-    "async": "^0.9.0"
   }
 }
