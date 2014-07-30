@@ -3,9 +3,16 @@
 var chai = require('chai');
 var expect = chai.expect;
 
+var AgitoMock = require('./mocks/Agito');
+
 describe('Agito#use()', function() {
 
+  var agito;
   var use = require('../../lib/use');
+
+  beforeEach(function() {
+    agito = AgitoMock.create();
+  });
 
   /*
    */
@@ -16,17 +23,17 @@ describe('Agito#use()', function() {
   /*
    */
   it('should register a new middleware', function() {
-    var agito = { _middlewares: [] };
-    use.call(agito, function middleware() {});
+    var middleware = function() {};
+    use.call(agito, middleware);
 
-    expect(agito._middlewares).to.be.an.instanceof(Array);
+    expect(agito._middlewares).to.be.an.instanceOf(Array);
     expect(agito._middlewares).to.have.length(1);
+    expect(agito._middlewares).to.include(middleware);
   });
 
   /*
    */
   it('should support several consecutive calls', function() {
-    var agito = { _middlewares: [] };
     var ret = use.call(
       use.call(agito, function middlewareA() {}),
       function middlewareB() {}
@@ -39,7 +46,7 @@ describe('Agito#use()', function() {
   /*
    */
   it('should throw if the middleware attribute is not an array or undefined', function() { // jshint ignore:line
-    var agito = {};
+    agito._middlewares = null;
 
     expect(function() {
       agito.use();
