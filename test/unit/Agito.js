@@ -30,11 +30,12 @@ describe('Agito', function() {
 
   /*
    */
-  it('should expose a middlewares array', function() {
+  it('should expose a middleware container (privately)', function() {
     var agito = new Agito();
 
-    expect(agito).to.have.ownProperty('middlewares');
-    expect(agito.middlewares).to.be.an.instanceof(Array);
+    expect(agito).to.have.property('_middlewares');
+    expect(agito._middlewares).to.be.an.instanceof(Array);
+    expect(agito._middlewares).to.be.empty; // jshint ignore:line
   });
 
   /*

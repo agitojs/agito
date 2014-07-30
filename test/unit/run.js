@@ -26,27 +26,27 @@ describe('Agito#run()', function() {
    */
   it('should throw if the middleware container is not an array', function() {
     expect(function() {
-      run.call({ middlewares: {} });
+      run.call({ _middlewares: {} });
     }).to.throw();
   });
 
   /*
    */
-  it('should throw if no middlewares has been registered', function() {
+  it('should throw if no _middlewares has been registered', function() {
     expect(function() {
-      run.call({ middlewares: [] });
+      run.call({ _middlewares: [] });
     }).to.throw();
   });
 
   /*
    */
-  it('should call every registered middlewares once', function() {
+  it('should call every registered _middlewares once', function() {
     var agito = {
-      middlewares: [1, 2, 3].map(function() { return createMiddleware(); })
+      _middlewares: [1, 2, 3].map(function() { return createMiddleware(); })
     };
     run.call(agito);
 
-    agito.middlewares.forEach(function(middleware) {
+    agito._middlewares.forEach(function(middleware) {
       expect(middleware).to.have.been.calledOn(agito);
       expect(middleware).to.have.been.calledWith(agito);
     });
@@ -55,7 +55,7 @@ describe('Agito#run()', function() {
   /*
    */
   it('should return null to avoid accidental chaining', function() {
-    var agito = { middlewares: [ createMiddleware() ] };
+    var agito = { _middlewares: [ createMiddleware() ] };
     var ret = run.call(agito);
 
     expect(ret).to.equal(null);
