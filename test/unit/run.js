@@ -68,4 +68,14 @@ describe('Agito#run()', function() {
     expect(ret).to.equal(null);
   });
 
+  /*
+   */
+  it('should throw if one middleware returns an error', function() {
+    agito._middlewares.push(function(agito, done) { return done('Error'); });
+
+    expect(function() {
+      run.call(agito);
+    }).to.throw();
+  });
+
 });
