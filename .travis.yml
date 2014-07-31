@@ -21,7 +21,8 @@ script:
 
 after_success:
   - npm run cover
-  - npm run codeclimate
+  - npm install -g codeclimate-test-reporter
+  - codeclimate < ./coverage/lcov.info
 
 
 deploy:

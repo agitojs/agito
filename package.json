@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "chai": "^1.9.1",
-    "codeclimate-test-reporter": "0.0.3",
     "gulp": "^3.8.6",
     "gulp-istanbul": "^0.2.1",
     "gulp-jscs": "^1.0.0",
