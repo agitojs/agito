@@ -29,6 +29,7 @@ agito
     agito.redirections.push(
       { from: 'http://example.net', to: 'http://example.com' }
     );
+    done();
   })
   .use(httpProtocol())
   .run()
