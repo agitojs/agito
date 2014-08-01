@@ -22,13 +22,14 @@ following code:
 
 ```javascript
 var agito = require('agito');
-var jsonLoader = require('agito-json-loader');
 var httpProtocol = require('agito-http-protocol');
 
 agito
-  .use(jsonLoader([
-    { from: 'http://example.net', to: 'http://example.com' }
-  ])
+  .use(function(agito, done) {
+    agito.redirections.push(
+      { from: 'http://example.net', to: 'http://example.com' }
+    );
+  })
   .use(httpProtocol())
   .run()
 ;
