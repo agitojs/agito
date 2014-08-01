@@ -73,15 +73,15 @@ Please feel free to report issues and bugs or to submit patches by the
 
 ## Changelog
 
-[Read CHANGELOG.md](CHANGELOG.md)
+See [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Authors
 
-[Read AUTHORS](AUTHORS)
+See [`package.json`](package.json).
 
 ## License
 
-[Read LICENSE](LICENSE)
+See [`LICENSE`](LICENSE).
 
 [npm]: https://www.npmjs.org/package/agito
 [npm-img]: http://img.shields.io/npm/v/agito.svg?style=flat
