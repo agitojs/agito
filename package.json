@@ -1,6 +1,6 @@
 {
   "name": "agito",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A middleware based redirection engine.",
   "scripts": {
     "test": "./node_modules/.bin/gulp lint test"
