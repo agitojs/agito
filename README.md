@@ -3,9 +3,7 @@
 [![Build Status][travis-img]][travis]
 [![Test Coverage][codeclimate-coverage-img]][codeclimate]
 [![Code Climate][codeclimate-gpa-img]][codeclimate]
-[![Dependency Status][daviddm-dep-img]][daviddm-dep]
-[![devDependency Status][daviddm-devdep-img]][daviddm-devdep]
-[![Stories in Ready][waffle-img]][waffle]
+[![Dependencies Status][daviddm-dep-img]][daviddm-dep]
 
 Agito is a middleware-based Node.js redirection engine. Its flexible nature
 makes it protocol agnostic and highly configurable.
@@ -81,19 +79,15 @@ Please feel free to report issues and bugs or to submit patches by the
 
 [Read LICENSE](LICENSE)
 
-[npm]: http://badge.fury.io/js/agito
-[npm-img]: https://badge.fury.io/js/agito.svg
+[npm]: https://www.npmjs.org/package/agito
+[npm-img]: http://img.shields.io/npm/v/agito.svg?style=flat
 [travis]: https://travis-ci.org/agitojs/agito
-[travis-img]: https://travis-ci.org/agitojs/agito.svg?branch=master
+[travis-img]: http://img.shields.io/travis/agitojs/agito/master.svg?style=flat
 [codeclimate]: https://codeclimate.com/github/agitojs/agito
-[codeclimate-coverage-img]: https://codeclimate.com/github/agitojs/agito/coverage.png
-[codeclimate-gpa-img]: https://codeclimate.com/github/agitojs/agito.png
-[daviddm-dep]: https://david-dm.org/agitojs/agito#info=dependencies
-[daviddm-dep-img]: https://david-dm.org/agitojs/agito.png
-[daviddm-devdep-img]: https://david-dm.org/agitojs/agito/dev-status.png
-[daviddm-devdep]: https://david-dm.org/agitojs/agito#info=devDependencies
-[waffle]: (http://waffle.io/agitojs/agito)
-[waffle-img]: https://badge.waffle.io/agitojs/agito.png
+[codeclimate-coverage-img]: http://img.shields.io/codeclimate/coverage/github/agitojs/agito.svg?style=flat
+[codeclimate-gpa-img]: http://img.shields.io/codeclimate/github/agitojs/agito.svg?style=flat
+[daviddm-dep]: https://david-dm.org/agitojs/agito
+[daviddm-dep-img]: http://img.shields.io/david/agitojs/agito.svg?style=flat
 
 [issue-tracker]: https://github.com/agitojs/agito/issues
 
