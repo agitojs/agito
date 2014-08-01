@@ -71,6 +71,10 @@ Then it will wait for a request. Once one arrives, it:
 Please feel free to report issues and bugs or to submit patches by the
 [issue tracker][issue-tracker].
 
+## Changelog
+
+[Read CHANGELOG.md](CHANGELOG.md)
+
 ## Authors
 
 [Read AUTHORS](AUTHORS)
