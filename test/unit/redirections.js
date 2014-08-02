@@ -20,12 +20,13 @@ describe('redirections', function() {
     });
 
     it('should throw an error if the given redirections are not in an array', function() {
-      expect(function() { normalize(); }).to.throw();
-      expect(function() { normalize(null); }).to.throw();
-      expect(function() { normalize(true); }).to.throw();
-      expect(function() { normalize(42); }).to.throw();
-      expect(function() { normalize('test'); }).to.throw();
-      expect(function() { normalize({}); }).to.throw();
+      expect(function() { normalize([]); }).not.to.throw();
+      expect(function() { normalize(); }).to.throw(TypeError);
+      expect(function() { normalize(null); }).to.throw(TypeError);
+      expect(function() { normalize(true); }).to.throw(TypeError);
+      expect(function() { normalize(42); }).to.throw(TypeError);
+      expect(function() { normalize('test'); }).to.throw(TypeError);
+      expect(function() { normalize({}); }).to.throw(TypeError);
     });
 
     it('should properly normalized correct strings', function() {
@@ -51,6 +52,15 @@ describe('redirections', function() {
       ]);
     });
 
+    it('should throw an error if the URL is local', function() {
+      expect(function() {
+        normalize([{
+          from: 'http:hey',
+          to: 'http://correct.com' }
+        ]);
+      }).to.throw(Error, /^Do not support local URL: /);
+    });
+
     it('should not fill fields when the related data is not found in the source string', function() {
       var redirection = [{ from: 'http://example.com', to: 'http://example.net' }];
       normalize(redirection);
@@ -74,13 +84,13 @@ describe('redirections', function() {
           from: { protocol: undefined, hostname: 'hey', pathname: 'oh' },
           to: 'http://correct.com' }
         ]);
-      }).to.throw();
+      }).to.throw(Error, /^Unable to parse the protocol or the hostname: /);
       expect(function() {
         normalize([{
           from: { protocol: '', hostname: 'hey', pathname: 'oh' },
           to: 'http://correct.com' }
         ]);
-      }).to.throw();
+      }).to.throw(Error, /^Unable to parse the protocol or the hostname: /);
     });
 
     it('should throw an error if the hostname is undefined or empty', function() {
@@ -89,31 +99,22 @@ describe('redirections', function() {
           from: { protocol: 'http', hostname: undefined, pathname: 'oh' },
           to: 'http://correct.com' }
         ]);
-      }).to.throw();
+      }).to.throw(Error, /^Unable to parse the protocol or the hostname: /);
       expect(function() {
         normalize([{
           from: { protocol: 'http', hostname: '', pathname: 'oh' },
           to: 'http://correct.com' }
         ]);
-      }).to.throw();
-    });
-
-    it('should throw an error if the URL is local', function() {
-      expect(function() {
-        normalize([{
-          from: 'http:hey',
-          to: 'http://correct.com' }
-        ]);
-      }).to.throw();
+      }).to.throw(Error, /^Unable to parse the protocol or the hostname: /);
     });
 
     it('should throw an error if the port isn\'t provided and cannot be infered from the protocol', function() {
       expect(function() {
         normalize([{
-          from: 'unknown://hoho',
+          from: 'unknown://correctdomain.com',
           to: 'http://correct.com'
         }]);
-      }).to.throw();
+      }).to.throw(Error, /^Unable to infer port from the given protocol: /);
     });
 
   });
