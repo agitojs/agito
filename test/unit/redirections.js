@@ -19,7 +19,7 @@ describe('redirections', function() {
       expect(normalize([])).to.be.null; // jshint ignore:line
     });
 
-    it('should throw an error if the given redirections are not in an array', function() { // jshint ignore:line
+    it('should throw an error if the given redirections are not in an array', function() {
       expect(function() { normalize(); }).to.throw();
       expect(function() { normalize(null); }).to.throw();
       expect(function() { normalize(true); }).to.throw();
@@ -30,8 +30,8 @@ describe('redirections', function() {
 
     it('should properly normalized correct strings', function() {
       var redirection = [{
-        from: 'http://check:aymericbeaumet@github.com:80/hireme?job=nodedev#SFMarch2015', // jshint ignore:line
-        to: 'https://check:charlinebestard@dribbble.com:443/hireme?job=uiux#SFMarch2015' // jshint ignore:line
+        from: 'http://check:aymericbeaumet@github.com:80/hireme?job=nodedev#SFMarch2015',
+        to: 'https://check:charlinebestard@dribbble.com:443/hireme?job=uiux#SFMarch2015'
       }];
       normalize(redirection);
 
@@ -51,13 +51,21 @@ describe('redirections', function() {
       ]);
     });
 
-    it('should not fill fields when the related data is not found in the source string', function() { // jshint ignore:line
-      var redirection = [{ from: 'http://example.com', to: 'http://example.net' }]; // jshint ignore:line
+    it('should not fill fields when the related data is not found in the source string', function() {
+      var redirection = [{ from: 'http://example.com', to: 'http://example.net' }];
       normalize(redirection);
 
       ['from', 'to'].forEach(function(field) {
-        expect(redirection[0][field]).to.have.keys('protocol', 'hostname', 'pathname');
+        expect(redirection[0][field]).to.have.keys('protocol', 'hostname', 'port', 'pathname');
       });
+    });
+
+    it('should infer the port from the protocol if not provided', function() {
+      var redirection = [{ from: 'http://example.com', to: 'https://example.net' }];
+      normalize(redirection);
+
+      expect(redirection[0].from.port).to.equal(80);
+      expect(redirection[0].to.port).to.equal(443);
     });
 
     it('should throw an error if the protocol is undefined or empty', function() {
