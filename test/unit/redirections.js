@@ -93,13 +93,7 @@ describe('redirections', function() {
     it('should throw an error if the URL is local', function() {
       expect(function() {
         normalize([{
-          from: { protocol: 'http', hostname: 'hey', pathname: undefined },
-          to: 'http://correct.com' }
-        ]);
-      }).to.throw();
-      expect(function() {
-        normalize([{
-          from: { protocol: 'http', hostname: 'hey', pathname: '' },
+          from: 'mailto:hey',
           to: 'http://correct.com' }
         ]);
       }).to.throw();
