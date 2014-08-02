@@ -34,7 +34,7 @@ gulp.task('cover', function(done) {
     .pipe(istanbul())
     .on('finish', function() {
       gulp.src([paths.tests])
-        .pipe(mocha())
+        .pipe(mocha({ reporter: 'progress' }))
         .pipe(istanbul.writeReports({ reporters: ['lcovonly'] }))
         .on('end', done)
       ;

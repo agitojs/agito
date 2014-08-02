@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "A middleware based redirection engine.",
   "scripts": {
-    "test": "./node_modules/.bin/gulp lint test"
+    "test": "./node_modules/.bin/gulp lint test",
+    "cover": "./node_modules/.bin/gulp cover"
   },
   "repository": {
     "type": "git",
