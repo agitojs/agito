@@ -7,13 +7,13 @@ describe('redirections', function() {
 
   var redirections = require('../../lib/redirections');
 
+  it('should expose a `normalize` method', function() {
+    expect(redirections).to.respondTo('normalize');
+  });
+
   describe('#normalize()', function() {
 
     var normalize = redirections.normalize;
-
-    it('should be a function', function() {
-      expect(normalize).to.be.a('function');
-    });
 
     it('should return null to avoid call chain', function() {
       expect(normalize([])).to.be.null; // jshint ignore:line

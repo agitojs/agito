@@ -22,13 +22,13 @@ describe('Agito', function() {
 
   /*
    */
-  it('should create an object using the "new" operator', function() {
+  it('should create an object using the \'new\' operator', function() {
     expect(agito).to.be.an.instanceOf(Agito);
   });
 
   /*
    */
-  it('should create an object even without using the "new" operator', function() { // jshint ignore:line
+  it('should create an object even without using the \'new\' operator', function() { // jshint ignore:line
     agito = Agito(); // jshint ignore:line
 
     expect(agito).to.be.an.instanceOf(Agito);
@@ -36,13 +36,13 @@ describe('Agito', function() {
 
   /*
    */
-  it('should expose a protocol container', function() {
+  it('should expose a `protocol` array', function() {
     expect(agito).to.have.property('protocols');
     expect(agito.protocols).to.be.an.instanceOf(Array);
     expect(agito.protocols).to.be.empty; // jshint ignore:line
   });
 
-  it('should expose a redirection container', function() {
+  it('should expose a `redirection` array', function() {
     expect(agito).to.have.property('redirections');
     expect(agito.redirections).to.be.an.instanceOf(Array);
     expect(agito.redirections).to.be.empty; // jshint ignore:line
@@ -50,33 +50,17 @@ describe('Agito', function() {
 
   /*
    */
-  it('should expose the "use" method', function() {
+  it('should expose a `use` method', function() {
     expect(agito).to.respondTo('use');
   });
 
   /*
    */
-  it('should expose the "run" method', function() {
+  it('should expose a `run` method', function() {
     expect(agito).to.respondTo('run');
   });
 
-  describe('#use()', function() {
-
-    /*
-     */
-    it('should be a function', function() {
-      expect(agito.use).to.be.a('function');
-    });
-
-  });
-
   describe('#run()', function() {
-
-    /*
-     */
-    it('should be a function', function() {
-      expect(agito.run).to.be.a('function');
-    });
 
     /*
      */
