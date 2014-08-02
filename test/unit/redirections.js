@@ -101,9 +101,18 @@ describe('redirections', function() {
     it('should throw an error if the URL is local', function() {
       expect(function() {
         normalize([{
-          from: 'mailto:hey',
+          from: 'http:hey',
           to: 'http://correct.com' }
         ]);
+      }).to.throw();
+    });
+
+    it('should throw an error if the port isn\'t provided and cannot be infered from the protocol', function() {
+      expect(function() {
+        normalize([{
+          from: 'unknown://hoho',
+          to: 'http://correct.com'
+        }]);
       }).to.throw();
     });
 
