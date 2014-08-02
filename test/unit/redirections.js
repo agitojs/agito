@@ -19,16 +19,6 @@ describe('redirections', function() {
       expect(normalize([])).to.be.null; // jshint ignore:line
     });
 
-    it('should throw an error if the given redirections are not in an array', function() {
-      expect(function() { normalize([]); }).not.to.throw();
-      expect(function() { normalize(); }).to.throw(TypeError);
-      expect(function() { normalize(null); }).to.throw(TypeError);
-      expect(function() { normalize(true); }).to.throw(TypeError);
-      expect(function() { normalize(42); }).to.throw(TypeError);
-      expect(function() { normalize('test'); }).to.throw(TypeError);
-      expect(function() { normalize({}); }).to.throw(TypeError);
-    });
-
     it('should properly normalized correct strings', function() {
       var redirection = [{
         from: 'http://check:aymericbeaumet@github.com:80/hireme?job=nodedev#SFMarch2015',
