@@ -53,7 +53,7 @@ describe('redirections', function() {
 
     it('should not fill fields when the related data is not found in the source string', function() { // jshint ignore:line
       var redirection = [{ from: 'http://example.com', to: 'http://example.net' }]; // jshint ignore:line
-      var ret = normalize(redirection);
+      normalize(redirection);
 
       ['from', 'to'].forEach(function(field) {
         expect(redirection[0][field]).to.have.keys('protocol', 'hostname', 'pathname');
