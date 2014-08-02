@@ -67,7 +67,7 @@ describe('Agito', function() {
     it('should throw if no middlewares have been registered', function() {
       expect(function() {
         agito.run();
-      }).to.throw();
+      }).to.throw(Error, 'No middlewares were registered');
     });
 
     /*
@@ -97,11 +97,11 @@ describe('Agito', function() {
     /*
      */
     it('should throw if one middleware returns an error', function() {
-      agito.use(function(agito, done) { return done('Error'); });
+      agito.use(function(agito, done) { return done('Middleware error'); });
 
       expect(function() {
         agito.run();
-      }).to.throw();
+      }).to.throw(Error, 'Middleware error');
     });
 
   });
