@@ -20,6 +20,12 @@ describe('Listener', function() {
     });
   });
 
+  afterEach(function() {
+    swallow(function() {
+      listener.stop();
+    });
+  });
+
   it('should be a function', function() {
     expect(Listener).to.be.a('function');
   });

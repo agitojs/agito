@@ -6,5 +6,12 @@ var sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
+function swallow(thrower) {
+  try {
+    thrower();
+  } catch (e) {}
+}
+
 global.expect = chai.expect;
 global.sinon = sinon;
+global.swallow = swallow;
