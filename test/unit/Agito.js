@@ -28,24 +28,10 @@ describe('Agito', function() {
 
   /*
    */
-  it('should create an object even without using the \'new\' operator', function() { // jshint ignore:line
+  it('should create an object even without using the \'new\' operator', function() {
     agito = Agito(); // jshint ignore:line
 
     expect(agito).to.be.an.instanceOf(Agito);
-  });
-
-  /*
-   */
-  it('should expose a `protocol` array', function() {
-    expect(agito).to.have.property('protocols');
-    expect(agito.protocols).to.be.an.instanceOf(Array);
-    expect(agito.protocols).to.be.empty; // jshint ignore:line
-  });
-
-  it('should expose a `redirection` array', function() {
-    expect(agito).to.have.property('redirections');
-    expect(agito.redirections).to.be.an.instanceOf(Array);
-    expect(agito.redirections).to.be.empty; // jshint ignore:line
   });
 
   /*
@@ -73,21 +59,29 @@ describe('Agito', function() {
     /*
      */
     it('should call every registered middleware once', function() {
-      var middleware = sinon.spy(function(agito, done) { return done(); });
+      var middleware = sinon.spy(function() { return this.done(); });
       agito
         .use(middleware)
         .run()
       ;
 
-      expect(middleware).to.have.been.calledOn(agito);
-      expect(middleware).to.have.been.calledWith(agito);
+      expect(middleware).to.have.been.calledOnce; // jshint ignore:line
+      var call = middleware.getCall(0);
+      expect(Object.keys(call.thisValue)).to.have.length(3);
+      expect(call.thisValue.protocols).to.deep.equal([]);
+      expect(call.thisValue.redirections).to.deep.equal([]);
+      expect(call.thisValue.done).to.be.a('function');
+      expect(call.args).to.have.length(Object.keys(call.thisValue).length);
+      expect(call.args[0]).to.deep.equal(call.thisValue.protocols);
+      expect(call.args[1]).to.deep.equal(call.thisValue.redirections);
+      expect(call.args[2]).to.deep.equal(call.thisValue.done);
     });
 
     /*
      */
     it('should return null to avoid accidental chaining', function() {
       var ret = agito
-        .use(function(agito, done) { return done(); })
+        .use(function() { return this.done(); })
         .run()
       ;
 
@@ -97,7 +91,7 @@ describe('Agito', function() {
     /*
      */
     it('should throw if one middleware returns an error', function() {
-      agito.use(function(agito, done) { return done('Middleware error'); });
+      agito.use(function() { return this.done('Middleware error'); });
 
       expect(function() {
         agito.run();
