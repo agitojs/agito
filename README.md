@@ -25,11 +25,11 @@ var agito = require('agito');
 var httpProtocol = require('agito-http-protocol');
 
 agito
-  .use(function(agito, done) {
-    agito.redirections.push(
+  .use(function() {
+    this.redirections.push(
       { from: 'http://example.net', to: 'http://example.com' }
     );
-    done();
+    this.done();
   })
   .use(httpProtocol())
   .run()
