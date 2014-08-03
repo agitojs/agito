@@ -1,8 +1,5 @@
 'use strict';
 
-var chai = require('chai');
-var expect = chai.expect;
-
 describe('redirections', function() {
 
   var redirections = require('../../lib/redirections');

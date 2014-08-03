@@ -1,8 +1,5 @@
 'use strict';
 
-var chai = require('chai');
-var expect = chai.expect;
-
 describe('port', function() {
 
   var port = require('../../lib/port');
