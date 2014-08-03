@@ -9,50 +9,36 @@ describe('Agito', function() {
     agito = new Agito();
   });
 
-  /*
-   */
   it('should be a function', function() {
     expect(Agito).to.be.a('function');
   });
 
-  /*
-   */
-  it('should create an object using the \'new\' operator', function() {
+  it('should create an object when using the \'new\' operator', function() {
     expect(agito).to.be.an.instanceOf(Agito);
   });
 
-  /*
-   */
   it('should create an object even without using the \'new\' operator', function() {
     agito = Agito(); // jshint ignore:line
 
     expect(agito).to.be.an.instanceOf(Agito);
   });
 
-  /*
-   */
   it('should expose a `use` method', function() {
     expect(agito).to.respondTo('use');
   });
 
-  /*
-   */
   it('should expose a `run` method', function() {
     expect(agito).to.respondTo('run');
   });
 
   describe('#run()', function() {
 
-    /*
-     */
     it('should throw if no middlewares have been registered', function() {
       expect(function() {
         agito.run();
       }).to.throw(Error, 'No middlewares were registered');
     });
 
-    /*
-     */
     it('should call every registered middleware once', function() {
       var middleware = sinon.spy(function() { return this.done(); });
       agito
@@ -72,8 +58,6 @@ describe('Agito', function() {
       expect(call.args[2]).to.deep.equal(call.thisValue.done);
     });
 
-    /*
-     */
     it('should return null to avoid accidental chaining', function() {
       var ret = agito
         .use(function() { return this.done(); })
@@ -83,8 +67,6 @@ describe('Agito', function() {
       expect(ret).to.be.null; // jshint ignore:line
     });
 
-    /*
-     */
     it('should throw if one middleware returns an error', function() {
       agito.use(function() { return this.done('Middleware error'); });
 
