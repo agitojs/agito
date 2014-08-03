@@ -1,5 +1,7 @@
 'use strict';
 
+var proxyquire = require('proxyquire');
+
 describe('Agito', function() {
 
   var Agito = require('../../lib/Agito');
@@ -48,14 +50,16 @@ describe('Agito', function() {
 
       expect(middleware).to.have.been.calledOnce; // jshint ignore:line
       var call = middleware.getCall(0);
-      expect(Object.keys(call.thisValue)).to.have.length(3);
+      expect(Object.keys(call.thisValue)).to.have.length(4);
       expect(call.thisValue.protocols).to.deep.equal([]);
-      expect(call.thisValue.redirections).to.deep.equal([]);
+      expect(call.thisValue.triggers).to.deep.equal([]);
+      expect(call.thisValue.engines).to.deep.equal([]);
       expect(call.thisValue.done).to.be.a('function');
       expect(call.args).to.have.length(Object.keys(call.thisValue).length);
       expect(call.args[0]).to.deep.equal(call.thisValue.protocols);
-      expect(call.args[1]).to.deep.equal(call.thisValue.redirections);
-      expect(call.args[2]).to.deep.equal(call.thisValue.done);
+      expect(call.args[1]).to.deep.equal(call.thisValue.triggers);
+      expect(call.args[2]).to.deep.equal(call.thisValue.engines);
+      expect(call.args[3]).to.deep.equal(call.thisValue.done);
     });
 
     it('should return null to avoid accidental chaining', function() {
@@ -73,6 +77,29 @@ describe('Agito', function() {
       expect(function() {
         agito.run();
       }).to.throw(Error, 'Middleware error');
+    });
+
+    it('should run one listener per port', function() {
+      var ListenerSpy = function() {};
+      ListenerSpy.prototype.start = sinon.spy();
+      var Agito = proxyquire('../../lib/Agito', { // expected shadowing
+        './Listener': ListenerSpy
+      });
+
+      var t = [
+        { pattern: 'http://example.com:80' },
+        { pattern: 'http://example.com:81' },
+        { pattern: 'http://example.com:82' }
+      ];
+      (new Agito())
+        .use(function() {
+          Array.prototype.push.apply(this.triggers, t);
+          this.done();
+        })
+        .run()
+      ;
+
+      expect(ListenerSpy.prototype.start).to.have.callCount(t.length);
     });
 
   });

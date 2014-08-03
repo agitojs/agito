@@ -8,8 +8,8 @@ describe('port', function() {
     expect(port).to.respondTo('getDefaultPortForProtocol');
   });
 
-  it('should expose a `extractSourcePorts` method', function() {
-    expect(port).to.respondTo('extractSourcePorts');
+  it('should expose a `extractPorts` method', function() {
+    expect(port).to.respondTo('extractPorts');
   });
 
   describe('#getDefaultPortForProtocol()', function() {
@@ -30,52 +30,44 @@ describe('port', function() {
 
   });
 
-  describe('#extractSourcePorts()', function() {
+  describe('#extractPorts()', function() {
 
-    var extractSourcePorts = port.extractSourcePorts;
+    var extractPorts = port.extractPorts;
 
     it('should return an array', function() {
-      var ret = extractSourcePorts([]);
+      var ret = extractPorts([]);
 
       expect(ret).to.be.an.instanceOf(Array);
     });
 
-    it('should return all the ports in the `from` fields', function() {
-      var redirections = [
-        { from: { port: 80 },   to: { port: 90 } },
-        { from: { port: 8080 }, to: { port: 9090 } }
+    it('should return all the ports', function() {
+      var triggers = [
+        { pattern: { port: 80 } },
+        { pattern: { port: 8080 } }
       ];
-      var ret = extractSourcePorts(redirections);
+      var ret = extractPorts(triggers);
 
       expect(ret).to.deep.equal([80, 8080]);
     });
 
     it('should aggregate ports to avoid duplicate', function() {
-      var redirections = [
-        { from: { port: 80 }, to: { port: 90 } },
-        { from: { port: 80 }, to: { port: 9090 } }
+      var triggers = [
+        { pattern: { port: 80 } },
+        { pattern: { port: 80 } }
       ];
-      var ret = extractSourcePorts(redirections);
+      var ret = extractPorts(triggers);
 
       expect(ret).to.deep.equal([80]);
     });
 
-    it('should throw an error if form is a not object', function() {
-      var redirections = [{}];
-
-      expect(function() {
-        extractSourcePorts(redirections);
-      }).to.throw(/^redirection.from should be an object: /);
-    });
-
     it('should throw an error if a port is not a number', function() {
-      var redirections = [{
-        from: { port: undefined }
-      }];
+      var triggers = [
+        { pattern: { port: undefined } }
+      ];
 
       expect(function() {
-        extractSourcePorts(redirections);
-      }).to.throw(Error, /^Port should be a number: /);
+        extractPorts(triggers);
+      }).to.throw(Error, /^trigger.pattern.port should be a number: /);
     });
 
   });
