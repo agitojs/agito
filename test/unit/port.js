@@ -60,6 +60,16 @@ describe('port', function() {
       expect(ret).to.deep.equal([80]);
     });
 
+    it('should throw an error if a pattern is not an object', function() {
+      var triggers = [
+        { pattern: undefined }
+      ];
+
+      expect(function() {
+        extractPorts(triggers);
+      }).to.throw(/^trigger.pattern should be an object: /);
+    });
+
     it('should throw an error if a port is not a number', function() {
       var triggers = [
         { pattern: { port: undefined } }
