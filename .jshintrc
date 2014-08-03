@@ -26,7 +26,8 @@
     "after" : false,
     "afterEach" : false,
 
-    "expect": true,
-    "sinon": true
+    "expect": false,
+    "sinon": true,
+    "swallow": false
   }
 }
