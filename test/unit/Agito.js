@@ -29,15 +29,15 @@ describe('Agito', function() {
     expect(agito).to.respondTo('use');
   });
 
-  it('should expose a `run` method', function() {
-    expect(agito).to.respondTo('run');
+  it('should expose a `start` method', function() {
+    expect(agito).to.respondTo('start');
   });
 
-  describe('#run()', function() {
+  describe('#start()', function() {
 
     it('should throw if no middlewares have been registered', function() {
       expect(function() {
-        agito.run();
+        agito.start();
       }).to.throw(Error, 'No middlewares were registered');
     });
 
@@ -45,7 +45,7 @@ describe('Agito', function() {
       var middleware = sinon.spy(function() { return this.done(); });
       agito
         .use(middleware)
-        .run()
+        .start()
       ;
 
       expect(middleware).to.have.been.calledOnce; // jshint ignore:line
@@ -65,7 +65,7 @@ describe('Agito', function() {
     it('should return null to avoid accidental chaining', function() {
       var ret = agito
         .use(function() { return this.done(); })
-        .run()
+        .start()
       ;
 
       expect(ret).to.be.null; // jshint ignore:line
@@ -75,7 +75,7 @@ describe('Agito', function() {
       agito.use(function() { return this.done('Middleware error'); });
 
       expect(function() {
-        agito.run();
+        agito.start();
       }).to.throw(Error, 'Middleware error');
     });
 
@@ -96,7 +96,7 @@ describe('Agito', function() {
           Array.prototype.push.apply(this.triggers, t);
           this.done();
         })
-        .run()
+        .start()
       ;
 
       expect(ListenerSpy.prototype.start).to.have.callCount(t.length);
