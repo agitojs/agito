@@ -82,20 +82,20 @@ describe('Agito', function() {
         './Listener': ListenerSpy
       });
 
-      var t = [
+      var triggers = [
         { pattern: 'http://example.com:80' },
         { pattern: 'http://example.com:81' },
         { pattern: 'http://example.com:82' }
       ];
       (new Agito())
         .use(function() {
-          Array.prototype.push.apply(this.triggers, t);
+          Array.prototype.push.apply(this.triggers, triggers);
           this.done();
         })
         .start()
       ;
 
-      expect(ListenerSpy.prototype.start).to.have.callCount(t.length);
+      expect(ListenerSpy.prototype.start).to.have.callCount(triggers.length);
     });
 
   });
