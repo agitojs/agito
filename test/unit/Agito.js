@@ -11,10 +11,6 @@ describe('Agito', function() {
     agito = new Agito();
   });
 
-  it('should be a function', function() {
-    expect(Agito).to.be.a('function');
-  });
-
   it('should create an object when using the \'new\' operator', function() {
     expect(agito).to.be.an.instanceOf(Agito);
   });

@@ -26,10 +26,6 @@ describe('Listener', function() {
     });
   });
 
-  it('should be a function', function() {
-    expect(Listener).to.be.a('function');
-  });
-
   it('should create an object when using the \'new\' operator', function() {
     expect(listener).to.be.an.instanceOf(Listener);
   });
