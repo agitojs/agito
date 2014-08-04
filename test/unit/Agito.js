@@ -62,13 +62,13 @@ describe('Agito', function() {
       expect(call.args[3]).to.deep.equal(call.thisValue.done);
     });
 
-    it('should return null to avoid accidental chaining', function() {
+    it('should return an Agito instance', function() {
       var ret = agito
         .use(function() { return this.done(); })
         .start()
       ;
 
-      expect(ret).to.be.null; // jshint ignore:line
+      expect(ret).to.be.an.instanceOf(Agito);
     });
 
     it('should throw if one middleware returns an error', function() {
