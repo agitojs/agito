@@ -9,17 +9,17 @@ var getSign = function(n) {
   return (n > 0) ? 'positive' : 'negative';
 };
 
-describe('utils', function() {
+describe('util', function() {
 
-  var utils = require('../../lib/utils');
+  var util = require('../../lib/util');
 
   it('should expose a `nestedGroupBy` method', function() {
-    expect(utils).to.respondTo('nestedGroupBy');
+    expect(util).to.respondTo('nestedGroupBy');
   });
 
   describe('#nestedGroupBy()', function() {
 
-    var nestedGroupBy = utils.nestedGroupBy;
+    var nestedGroupBy = util.nestedGroupBy;
 
     it('should return the collection untouched if no identities are provided', function() {
       var collection = [1, 2, 3];
