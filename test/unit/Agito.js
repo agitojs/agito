@@ -49,12 +49,12 @@ describe('Agito', function() {
       expect(Object.keys(call.thisValue)).to.have.length(4);
       expect(call.thisValue.protocols).to.deep.equal([]);
       expect(call.thisValue.triggers).to.deep.equal([]);
-      expect(call.thisValue.engines).to.deep.equal([]);
+      expect(call.thisValue.actions).to.deep.equal([]);
       expect(call.thisValue.done).to.be.a('function');
       expect(call.args).to.have.length(Object.keys(call.thisValue).length);
       expect(call.args[0]).to.deep.equal(call.thisValue.protocols);
       expect(call.args[1]).to.deep.equal(call.thisValue.triggers);
-      expect(call.args[2]).to.deep.equal(call.thisValue.engines);
+      expect(call.args[2]).to.deep.equal(call.thisValue.actions);
       expect(call.args[3]).to.deep.equal(call.thisValue.done);
     });
 
