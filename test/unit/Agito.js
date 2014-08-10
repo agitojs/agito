@@ -58,7 +58,7 @@ describe('Agito', function() {
       expect(call.args[3]).to.deep.equal(call.thisValue.done);
     });
 
-    it('should return an Agito instance', function() {
+    it('should return null to avoid accidental chained calls', function() {
       var ret = agito
         .use(function() { return this.done(); })
         .run()
@@ -78,7 +78,7 @@ describe('Agito', function() {
     it('should run one listener per port', function() {
       var ListenerSpy = function() {};
       ListenerSpy.prototype.start = sinon.spy();
-      var Agito = proxyquire('../../lib/Agito', { // expected shadowing
+      var Agito = proxyquire('../../lib/Agito', { // expected var shadowing
         './Listener': ListenerSpy
       });
 
