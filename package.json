@@ -4,7 +4,7 @@
   "description": "A middleware based redirection engine.",
   "scripts": {
     "test": "make lint test",
-    "cover": "make cover"
+    "cover": "make cover-lcov"
   },
   "repository": {
     "type": "git",

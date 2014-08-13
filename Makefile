@@ -7,11 +7,9 @@ _MOCHA ?= ./node_modules/.bin/_mocha
 
 # Options
 ISTANBUL_FLAGS ?=
-ISTANBUL_COVER_FLAGS ?= --report lcovonly
 JSCS_FLAGS ?=
 JSHINT_FLAGS ?=
 MOCHA_FLAGS ?= --recursive --check-leaks --bail
-MOCHA_FLAGS_TDD ?=  --watch --growl --debug
 
 # Sources
 JS_LIB := lib/
@@ -30,9 +28,12 @@ test: $(JS_TEST)
 	$(MOCHA) $(MOCHA_FLAGS) $^
 
 tdd: $(JS_TEST)
-	$(MOCHA) $(MOCHA_FLAGS) $(MOCHA_FLAGS_TDD) $^
+	$(MOCHA) $(MOCHA_FLAGS) --watch --growl --debug $^
 
 cover: $(JS_TEST)
-	$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) $(ISTANBUL_COVER_FLAGS) -- $(MOCHA_FLAGS) $^
+	$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) -- $(MOCHA_FLAGS) $^
 
-.PHONY: all lint test tdd coverage
+cover-lcov: $(JS_TEST)
+	$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) --report lcovonly -- $(MOCHA_FLAGS) $^
+
+.PHONY: all lint test tdd cover cover-lcov
