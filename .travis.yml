@@ -12,16 +12,16 @@ addons:
 
 before_install:
   - npm install -g npm
+  - npm install -g codeclimate-test-reporter
 
 install:
   - npm install
 
 script:
-  - npm test
+  - npm run test
 
 after_success:
   - npm run cover
-  - npm install -g codeclimate-test-reporter
   - codeclimate < ./coverage/lcov.info
 
 
