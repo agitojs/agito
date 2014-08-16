@@ -1,13 +1,27 @@
 'use strict';
 
-var getEven = function(n) {
+/**
+ * Identify whether a number is either 'even' or 'odd'.
+ *
+ * @param {Number} n
+ *
+ * @return {String}
+ */
+function getEven(n) {
   return (n % 2) === 0 ? 'even' : 'odd';
-};
+}
 
-var getSign = function(n) {
+/**
+ * Identify whether a number is positive, null or negative.
+ *
+ * @param {Number} n
+ *
+ * @return {String}
+ */
+function getSign(n) {
   if (n === 0) { return 'null'; }
   return (n > 0) ? 'positive' : 'negative';
-};
+}
 
 describe('util', function() {
 

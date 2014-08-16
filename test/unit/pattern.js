@@ -55,6 +55,14 @@ describe('pattern', function() {
       expect(ret[1].port).to.equal(443);
     });
 
+    it('should be able to parse a string with a username but without password', function() {
+      var pattern = parse('http://username@example.com');
+
+      expect(pattern).to.have.keys([
+        'protocol', 'username', 'hostname', 'port', 'pathname'
+      ]);
+    });
+
     it('should pass the given pattern through if it is a correct object', function() {
       var pattern = {
         protocol: 'https',

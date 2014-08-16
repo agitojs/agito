@@ -25,24 +25,33 @@ describe('Agito', function() {
     expect(agito).to.respondTo('use');
   });
 
-  it('should expose a `run` method', function() {
-    expect(agito).to.respondTo('run');
+  it('should expose a `start` method', function() {
+    expect(agito).to.respondTo('start');
   });
 
-  describe('#run()', function() {
+  describe('#start()', function() {
 
-    it('should throw if no middlewares have been registered', function() {
-      expect(function() {
-        agito.run();
-      }).to.throw(Error, 'No middlewares were registered');
+    it('should return null to avoid accidental chained calls', function() {
+      var ret = agito
+        .use(function() { return this.done(); })
+        .start();
+
+      expect(ret).to.be.null; // jshint ignore:line
+    });
+
+    it('should pass an error to the callback if now middlewares were registered', function(done) {
+      agito.start(function(err) {
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('No middlewares were registered');
+        done();
+      });
     });
 
     it('should call every registered middleware once', function() {
       var middleware = sinon.spy(function() { return this.done(); });
       agito
         .use(middleware)
-        .run()
-      ;
+        .start();
 
       expect(middleware).to.have.been.calledOnce; // jshint ignore:line
       var call = middleware.getCall(0);
@@ -58,24 +67,90 @@ describe('Agito', function() {
       expect(call.args[3]).to.deep.equal(call.thisValue.done);
     });
 
-    it('should return null to avoid accidental chained calls', function() {
-      var ret = agito
-        .use(function() { return this.done(); })
-        .run()
-      ;
-
-      expect(ret).to.be.null; // jshint ignore:line
-    });
-
-    it('should throw if one middleware returns an error', function() {
+    it('should forward every error middlewares could have emitted back to the callback', function(done) {
       agito.use(function() { return this.done('Middleware error'); });
 
-      expect(function() {
-        agito.run();
-      }).to.throw(Error, 'Middleware error');
+      agito.start(function(err) {
+        expect(err).to.equal('Middleware error');
+        done();
+      });
     });
 
-    it('should run one listener per port', function() {
+    it('should start one proxy per protocol', function(done) {
+      var protocol = {
+        proxy: {
+          start: sinon.spy(function() { return this.done(); })
+        }
+      };
+      agito
+        .use(function() {
+          this.protocols.push(protocol);
+          return this.done();
+        })
+        .start(function(err) {
+          if (err) { return done(err); }
+
+          expect(protocol.proxy.start).to.have.been.calledOnce; // jshint ignore:line
+          var call = protocol.proxy.start.getCall(0);
+          expect(Object.keys(call.thisValue)).to.have.length(3);
+          expect(call.thisValue.triggers).to.deep.equal([]);
+          expect(call.thisValue.actions).to.deep.equal([]);
+          expect(call.thisValue.done).to.be.a('function');
+          expect(call.args).to.have.length(Object.keys(call.thisValue).length);
+          expect(call.args[0]).to.deep.equal(call.thisValue.triggers);
+          expect(call.args[1]).to.deep.equal(call.thisValue.actions);
+          expect(call.args[2]).to.deep.equal(call.thisValue.done);
+          return done();
+        });
+    });
+
+    it('should forward protocols\' proxies error to the callback', function(done) {
+      var protocol = {
+        proxy: {
+          start: function() { return this.done('Protocol\'s proxy error'); }
+        }
+      };
+      agito
+        .use(function() {
+          this.protocols.push(protocol);
+          return this.done();
+        })
+        .start(function(err) {
+          expect(err).to.equal('Protocol\'s proxy error');
+          return done();
+        });
+    });
+
+    it('should only pass the corresponding actions to the protocol\'s proxy', function(done) {
+      var actions = [
+        { protocol: 'http' },
+        { protocol: 'https' },
+        { protocol: 'ftp' }
+      ];
+      var protocol = {
+        name: 'http',
+        proxy: {
+          start: sinon.spy(function() { return this.done(); })
+        }
+      };
+      agito
+        .use(function() {
+          this.protocols.push(protocol);
+          Array.prototype.push.apply(this.actions, actions);
+          return this.done();
+        })
+        .start(function(err) {
+          if (err) { return done(err); }
+
+          expect(protocol.proxy.start).to.have.been.calledOnce; // jshint ignore:line
+          expect(protocol.proxy.start.getCall(0).thisValue.actions).to.deep.equal([{
+            protocol: 'http'
+          }]);
+          return done();
+        });
+    });
+
+    it('should start one listener per port', function() {
       var ListenerSpy = function() {};
       ListenerSpy.prototype.start = sinon.spy();
       var Agito = proxyquire('../../lib/Agito', { // expected var shadowing
@@ -92,8 +167,7 @@ describe('Agito', function() {
           Array.prototype.push.apply(this.triggers, triggers);
           this.done();
         })
-        .run()
-      ;
+        .start();
 
       expect(ListenerSpy.prototype.start).to.have.callCount(triggers.length);
     });
