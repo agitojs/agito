@@ -56,7 +56,7 @@ describe('Listener', function() {
       return {
         match: sinon.spy(function() { return ret; }),
         proxy: {
-          address: unixSocketPath,
+          address: unixSocketPath
         }
       };
     });
