@@ -6,6 +6,11 @@ var sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
+/**
+ * Catch any exception launched by the given function.
+ *
+ * @param {Function} thrower - The function to mute
+ */
 function swallow(thrower) {
   try {
     thrower();
