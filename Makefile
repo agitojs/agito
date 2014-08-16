@@ -9,7 +9,7 @@ _MOCHA ?= ./node_modules/.bin/_mocha
 ISTANBUL_FLAGS ?=
 JSCS_FLAGS ?=
 JSHINT_FLAGS ?=
-MOCHA_FLAGS ?= --recursive --check-leaks --bail
+MOCHA_FLAGS ?= --recursive --check-leaks
 
 # Sources
 JS_LIB := lib/
@@ -25,10 +25,10 @@ lint: $(JS_LIB) $(JS_TEST)
 	$(JSCS) $(JSCS_FLAGS) $^
 
 test: $(JS_TEST)
-	$(MOCHA) $(MOCHA_FLAGS) $^
+	$(MOCHA) $(MOCHA_FLAGS) --bail $^
 
 tdd: $(JS_TEST)
-	$(MOCHA) $(MOCHA_FLAGS) --watch --growl --debug $^
+	$(MOCHA) $(MOCHA_FLAGS) --watch --growl $^
 
 cover: $(JS_TEST)
 	$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) -- $(MOCHA_FLAGS) $^
