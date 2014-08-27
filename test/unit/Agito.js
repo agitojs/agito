@@ -94,7 +94,7 @@ describe('Agito', function() {
           var call = protocol.proxy.start.getCall(0);
           expect(Object.keys(call.thisValue)).to.have.length(3);
           expect(call.thisValue.triggers).to.deep.equal([]);
-          expect(call.thisValue.actions).to.deep.equal([]);
+          expect(call.thisValue.actions).to.deep.equal({});
           expect(call.thisValue.done).to.be.a('function');
           expect(call.args).to.have.length(Object.keys(call.thisValue).length);
           expect(call.args[0]).to.deep.equal(call.thisValue.triggers);
@@ -123,9 +123,9 @@ describe('Agito', function() {
 
     it('should only pass the corresponding actions to the protocol\'s proxy', function(done) {
       var actions = [
-        { protocol: 'http' },
-        { protocol: 'https' },
-        { protocol: 'ftp' }
+        { name: 'http', protocol: 'http' },
+        { name: 'https', protocol: 'https' },
+        { name: 'ftp', protocol: 'ftp' }
       ];
       var protocol = {
         name: 'http',
@@ -143,9 +143,12 @@ describe('Agito', function() {
           if (err) { return done(err); }
 
           expect(protocol.proxy.start).to.have.been.calledOnce; // jshint ignore:line
-          expect(protocol.proxy.start.getCall(0).thisValue.actions).to.deep.equal([{
-            protocol: 'http'
-          }]);
+          expect(protocol.proxy.start.getCall(0).thisValue.actions).to.deep.equal({
+            http: {
+              name: 'http',
+              protocol: 'http'
+            }
+          });
           return done();
         });
     });
