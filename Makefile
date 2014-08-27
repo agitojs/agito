@@ -4,6 +4,7 @@ JSCS ?= ./node_modules/.bin/jscs
 JSHINT ?= ./node_modules/.bin/jshint
 MOCHA ?= ./node_modules/.bin/mocha
 _MOCHA ?= ./node_modules/.bin/_mocha
+NPM ?= npm
 
 # Options
 ISTANBUL_FLAGS ?=
@@ -18,22 +19,25 @@ JS_TEST := test/
 
 # Targets
 
-all: lint test
+all: node_modules lint test
+
+node_modules:
+	@$(NPM) install
 
 lint: $(JS_LIB) $(JS_TEST)
-	$(JSHINT) $(JSHINT_FLAGS) $^
-	$(JSCS) $(JSCS_FLAGS) $^
+	@$(JSHINT) $(JSHINT_FLAGS) $^
+	@$(JSCS) $(JSCS_FLAGS) $^
 
 test: $(JS_TEST)
-	$(MOCHA) $(MOCHA_FLAGS) --bail $^
+	@$(MOCHA) $(MOCHA_FLAGS) --bail $^
 
 tdd: $(JS_TEST)
-	$(MOCHA) $(MOCHA_FLAGS) --watch --growl $^
+	@$(MOCHA) $(MOCHA_FLAGS) --watch --growl $^
 
 cover: $(JS_TEST)
-	$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) -- $(MOCHA_FLAGS) $^
+	@$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) -- $(MOCHA_FLAGS) $^
 
 cover-lcov: $(JS_TEST)
-	$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) --report lcovonly -- $(MOCHA_FLAGS) $^
+	@$(ISTANBUL) $(ISTANBUL_FLAGS) cover $(_MOCHA) --report lcovonly -- $(MOCHA_FLAGS) $^
 
 .PHONY: all lint test tdd cover cover-lcov
