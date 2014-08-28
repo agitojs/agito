@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "A middleware based redirection engine.",
   "scripts": {
-    "test": "./node_modules/.bin/gulp lint test"
+    "test": "make lint test",
+    "cover": "make cover",
+    "cover-lcov": "make cover-lcov"
   },
   "repository": {
     "type": "git",
@@ -21,18 +23,17 @@
   },
   "homepage": "https://github.com/agitojs/agito",
   "dependencies": {
-    "async": "^0.9.0"
+    "async": "^0.9.0",
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
     "chai": "^1.9.1",
-    "gulp": "^3.8.6",
-    "gulp-istanbul": "^0.2.1",
-    "gulp-jscs": "^1.0.0",
-    "gulp-jshint": "^1.8.0",
-    "gulp-mocha": "^0.5.2",
-    "gulp-notify": "^1.4.0",
-    "gulp-plumber": "^0.6.4",
-    "gulp-watch": "^0.6.8",
+    "istanbul": "^0.3.0",
+    "jscs": "^1.5.9",
+    "jshint": "^2.5.3",
+    "mocha": "^1.21.4",
+    "portfinder": "^0.2.1",
+    "proxyquire": "^1.0.1",
     "sinon-chai": "^2.5.0"
   }
 }

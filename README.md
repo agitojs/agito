@@ -25,11 +25,11 @@ var agito = require('agito');
 var httpProtocol = require('agito-http-protocol');
 
 agito
-  .use(function(agito, done) {
-    agito.redirections.push(
+  .use(function() {
+    this.redirections.push(
       { from: 'http://example.net', to: 'http://example.com' }
     );
-    done();
+    this.done();
   })
   .use(httpProtocol())
   .run()
@@ -75,15 +75,15 @@ Please feel free to report issues and bugs or to submit patches by the
 
 ## Changelog
 
-See [`CHANGELOG.md`](CHANGELOG.md).
+See [`CHANGELOG.md`](CHANGELOG.md)
 
 ## Authors
 
-See [`package.json`](package.json).
+See [`package.json`](package.json)
 
 ## License
 
-See [`LICENSE`](LICENSE).
+See [`LICENSE`](LICENSE)
 
 [npm]: https://www.npmjs.org/package/agito
 [npm-img]: http://img.shields.io/npm/v/agito.svg?style=flat

@@ -24,6 +24,10 @@
     "before" : false,
     "beforeEach" : false,
     "after" : false,
-    "afterEach" : false
+    "afterEach" : false,
+
+    "expect": false,
+    "sinon": true,
+    "swallow": false
   }
 }
