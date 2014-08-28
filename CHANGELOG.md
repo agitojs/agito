@@ -1,4 +1,4 @@
-canary:
+0.0.2:
 
   - now automatically infer the port from the protocol
   - start protocols' proxy servers
