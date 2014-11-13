@@ -21,19 +21,26 @@ request from `example.net` to `example.com`. This can simply be done via the
 following code:
 
 ```javascript
-var agito = require('agito');
+var Agito = require('agito');
 var httpProtocol = require('agito-http-protocol');
+var httpRedirection = require('agito-http-redirection');
+var jsonLoader = require('agito-json-loader');
 
-agito
-  .use(function() {
-    this.redirections.push(
-      { from: 'http://example.net', to: 'http://example.com' }
-    );
-    this.done();
-  })
+Agito()
+  .use(jsonLoader({
+    pattern: 'http://example.net',
+    action: {
+      name: 'http-redirection',
+      options: {
+        target: 'http://example.com'
+      }
+    }
+  }))
   .use(httpProtocol())
-  .run()
-;
+  .use(httpRedirection())
+  .start(function() {
+    console.log('Listening');
+  });
 ```
 
 _Note: you need to run this code on the server receiving the `example.net`
