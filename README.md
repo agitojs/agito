@@ -72,8 +72,8 @@ Agito will first initialized itself, by:
 Then it will wait for a request. Once one arrives, it:
 
 1. Identifies the protocol
-2. Finds a matching entry in the redirection pool
-3. Redirect the request to its new destination
+2. Finds a matching entry in the actions pool
+3. Execute the action
 
 ## Issue tracker
 
